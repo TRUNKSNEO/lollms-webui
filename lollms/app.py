@@ -113,25 +113,6 @@ class LollmsApplication(LoLLMsCom):
 
 
         if not free_mode:
-            try:
-                if config.auto_update and self.is_internet_available:
-                    def check_lollms_bindings_zoo():
-                        subprocess.run(["git", "-C", self.lollms_paths.bindings_zoo_path, "checkout", "main"])            
-                        subprocess.run(["git", "-C", self.lollms_paths.bindings_zoo_path, "pull"])
-                    ASCIIColors.blue("Bindings zoo found in your personal space.")
-                    ASCIIColors.execute_with_animation("Pulling last bindings zoo", check_lollms_bindings_zoo)
-
-                    # Pull the repository if it already exists
-                    def check_lollms_models_zoo():
-                        subprocess.run(["git", "-C", self.lollms_paths.models_zoo_path, "checkout", "main"])            
-                        subprocess.run(["git", "-C", self.lollms_paths.models_zoo_path, "pull"])            
-                    ASCIIColors.blue("Models zoo found in your personal space.")
-                    ASCIIColors.execute_with_animation("Pulling last Models zoo", check_lollms_models_zoo)
-
-            except Exception as ex:
-                ASCIIColors.error("Couldn't pull zoos. Please contact the main dev on our discord channel and report the problem.")
-                trace_exception(ex)
-
             if self.config.binding_name is None:
                 ASCIIColors.warning(f"No binding selected")
                 if try_select_binding:
